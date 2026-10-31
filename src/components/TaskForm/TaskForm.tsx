@@ -44,8 +44,8 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
 
 
             <select id="status" name="status" value={formData.status} onChange={handleChange}>
-                <option value="in-progress">In Progress</option>
                 <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
                 <option value="completed">Completed</option>
             </select>
 
@@ -53,7 +53,7 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
             <select id="priority" name="priority" value={formData.priority} onChange={handleChange}>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
-                <option value="highd">High</option>
+                <option value="high">High</option>
             </select>
             
             <input id="dueDate" name="dueDate" value={formData.dueDate} onChange={handleChange} />
