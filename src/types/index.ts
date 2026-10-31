@@ -11,6 +11,7 @@
 //created TaskStatus and PriorityStatus so we can have add more statuses to the union later if needed.
 export type TaskStatus = 'pending' | 'in-progress' | 'completed';
 export type PriorityStatus =  'low' | 'medium' | 'high';
+export interface TaskFilters { status?: TaskStatus; priority?: PriorityStatus; search: string; }
 // creating a reusable interface or type to model what a single task looks like.
 //this is the interface's data: This is what is stored, saved to LocalStorage, filtered and sorted.
 export interface Task {
@@ -47,8 +48,5 @@ export interface TaskItemProps {
 
 // types/index.ts
 export interface TaskFilterProps {
-  onFilterChange: (filters: {
-    status?: TaskStatus;
-    priority?: PriorityStatus;
-  }) => void;
+  onFilterChange: (filters: TaskFilters) => void;
 }
