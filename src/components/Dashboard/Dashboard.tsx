@@ -9,3 +9,8 @@
 // 8. Export/import tasks as JSON
 // 9. Responsive layout
 // Extras (last): dark mode toggle, drag-and-drop reordering, animations
+export function Dashboard() {
+    return(
+        <div>Dashboard</div>
+    )
+}

@@ -6,7 +6,7 @@
 // 5. Every change -> send updated filter options up through a callback prop
 // 6. Show which filters are active, plus a way to clear them
 
-export default function TaskFilter() {
+export function TaskFilter() {
 
 
     return(

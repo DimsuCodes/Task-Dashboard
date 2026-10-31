@@ -4,3 +4,8 @@
 // 3. Delete button -> calls a callback prop with this task's id
 // 4. Edit button -> tells the parent which task to edit
 // This component should NOT own the task list state — it only reports events up
+export function TaskItem() {
+    return(
+        <div>Task Item</div>
+    )
+}
