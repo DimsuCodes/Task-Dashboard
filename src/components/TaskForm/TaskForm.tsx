@@ -38,6 +38,27 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
             <label htmlFor="title">Title</label>
             <input id="title" name="title" value={formData.title} onChange={handleChange} />
             {errors.title && <p>{errors.title}</p>}
+
+            <label htmlFor="description">Description</label>
+            <textarea id="description" name="description" value={formData.description} onChange={handleChange} />
+
+
+            <select id="status" name="status" value={formData.status} onChange={handleChange}>
+                <option value="in-progress">In Progress</option>
+                <option value="pending">Pending</option>
+                <option value="completed">Completed</option>
+            </select>
+
+
+            <select id="priority" name="priority" value={formData.priority} onChange={handleChange}>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="highd">High</option>
+            </select>
+            
+            <input id="dueDate" name="dueDate" value={formData.dueDate} onChange={handleChange} />
+                {errors.dueDate && <p>{errors.dueDate}</p>}
+                
         </form>
     );
 }
