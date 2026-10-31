@@ -52,3 +52,8 @@ export interface TaskItemProps {
 export interface TaskFilterProps {
   onFilterChange: (filters: TaskFilters) => void;
 }
+
+export interface FormErrors {
+  title?: string;
+  dueDate?: string;
+}
