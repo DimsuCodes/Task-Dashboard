@@ -22,6 +22,16 @@ export interface Task {
     dueDate: string;
 }
 
+//TaskFormData will be used for our form slip
+
+export interface TaskFormData {
+    title: string;
+    description: string;
+    status: TaskStatus;
+    priority: PriorityStatus
+    dueDate: string;
+}
+
 export interface TaskListProps {
   tasks: Task[];
   onStatusChange: (taskId: string, newStatus: TaskStatus) => void;
