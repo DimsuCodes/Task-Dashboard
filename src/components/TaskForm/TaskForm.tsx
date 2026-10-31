@@ -33,32 +33,47 @@ export function TaskForm({ onSubmit }: TaskFormProps) {
         setFormData({ ...formData, [name]: value });
     };
 
+    // Runs when the form is submitted: validate, then send the data up or show errors
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();                      // stop the page from reloading
+        const newErrors = validateTask(formData);
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length > 0) return;  // has errors, so stop here
+
+        onSubmit(formData);       // ring the doorbell 🔔 with the slip
+        setFormData(emptyForm);   // clear the form
+    };
+
     return (
-        <form>
-            <label htmlFor="title">Title</label>
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="title">Title:</label>
             <input id="title" name="title" value={formData.title} onChange={handleChange} />
             {errors.title && <p>{errors.title}</p>}
 
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">Description:</label>
             <textarea id="description" name="description" value={formData.description} onChange={handleChange} />
 
-
+            <label htmlFor="status">Status:</label>
             <select id="status" name="status" value={formData.status} onChange={handleChange}>
                 <option value="pending">Pending</option>
                 <option value="in-progress">In Progress</option>
                 <option value="completed">Completed</option>
             </select>
 
-
+            <label htmlFor="priority">Priority:</label>
             <select id="priority" name="priority" value={formData.priority} onChange={handleChange}>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
-            
-            <input id="dueDate" name="dueDate" value={formData.dueDate} onChange={handleChange} />
-                {errors.dueDate && <p>{errors.dueDate}</p>}
-                
+
+            <label htmlFor="dueDate">Due Date:</label>
+            <input type="date" id="dueDate" name="dueDate" value={formData.dueDate} onChange={handleChange} />
+            {errors.dueDate && <p>{errors.dueDate}</p>}
+
+
+            <button type="submit">Add Task</button>
         </form>
     );
 }
