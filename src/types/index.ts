@@ -12,6 +12,7 @@
 export type TaskStatus = 'pending' | 'in-progress' | 'completed';
 export type PriorityStatus =  'low' | 'medium' | 'high';
 export interface TaskFilters { status?: TaskStatus; priority?: PriorityStatus; search: string; }
+export type SortOption = 'dueDate' | 'title';
 // creating a reusable interface or type to model what a single task looks like.
 //this is the interface's data: This is what is stored, saved to LocalStorage, filtered and sorted.
 export interface Task {

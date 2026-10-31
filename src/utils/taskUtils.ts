@@ -6,7 +6,7 @@
 // 4. Date formatting helper: turns a stored date into something readable
 // 5. Stats helper (for Dashboard): counts by status, etc.
 // Keep these pure: same input -> same output, no useState, no localStorage in here
-import type { Task, TaskFilters } from '../types';
+import type { Task, TaskFilters, SortOption } from '../types';
 
 
 export function filterTasks (tasks: Task[], filters: TaskFilters): Task[] {
@@ -25,6 +25,18 @@ export function filterTasks (tasks: Task[], filters: TaskFilters): Task[] {
             return true; 
             //*passed every test so keep it.//
     });
+}
+
+export function sortTasks(tasks: Task[], sortBy: SortOption): Task[] {
+    const copy = [...tasks] 
+
+    if (sortBy === 'title') {
+        return copy.sort((a, b) =>
+        a.title.localeCompare(b.title));
+    }
+        return copy.sort((a, b) =>
+        a.dueDate.localeCompare(b.dueDate));
+    
 }
  
 
