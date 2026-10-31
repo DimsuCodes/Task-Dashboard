@@ -10,21 +10,23 @@ import type { Task, TaskFilters } from '../types';
 
 
 export function filterTasks (tasks: Task[], filters: TaskFilters): Task[] {
-    return tasks.filter ((task) => {
+           return tasks.filter ((task) => {
                 //* its like if a color filter is set to blue and if it doesnt match then 
         //drop it
 
-            if(filters.status && task.title !== filters.status) return false; // this is one "test"
+            if(filters.status && task.status !== filters.status) return false; // this is one "test"
+            if(filters.priority && task.priority !== filters.priority) return false; // this is one "test"
 
             //search: lowercase both sides, check if the name contains text
 
-            if (!task.description.toLowerCase().includes(filters.search.toLowerCase())) return false; //this is two "test"
-
             const search = filters.search.toLowerCase();
-                if(!task.description.toLowerCase().includes(search) return false)
-            return true; //passed every test so keep it.
-    
+                if(!task.title.toLowerCase().includes(search) && !task.description.toLowerCase().includes(search)) return false
+                    
+            return true; 
+            //*passed every test so keep it.//
     });
-
 }
+ 
+
+
     
