@@ -57,3 +57,7 @@ export interface FormErrors {
   title?: string;
   dueDate?: string;
 }
+
+export interface TaskFormProps {
+  onSubmit: (data: TaskFormData) => void;
+}

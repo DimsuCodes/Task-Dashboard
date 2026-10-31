@@ -8,10 +8,36 @@
 
 
 
-export function TaskForm() {
-    return(
+import { useState } from 'react';
+import type { TaskFormData, FormErrors, TaskFormProps } from '../../types';
+import { validateTask } from '../../utils/taskUtils';
+
+// A blank slip, used to start (and reset) the form
+const emptyForm: TaskFormData = {
+    title: '',
+    description: '',
+    status: 'pending',     // which status should a new task start with?
+    priority: 'low',   // pick a sensible default
+    dueDate: '',
+};
+
+export function TaskForm({ onSubmit }: TaskFormProps) {
+    const [formData, setFormData] = useState<TaskFormData>(emptyForm);
+    const [errors, setErrors] = useState<FormErrors>({});
+
+    // Updates the one field that changed, matched by the input's "name"
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    return (
         <form>
-            
+            <label htmlFor="title">Title</label>
+            <input id="title" name="title" value={formData.title} onChange={handleChange} />
+            {errors.title && <p>{errors.title}</p>}
         </form>
-    )
+    );
 }
