@@ -10,7 +10,7 @@ export default function App() {
     <div>
       <h1>Hello World!</h1>
       <Dashboard />
-      <TaskForm />
+      <TaskForm onSubmit={(data) => console.log(data)} />
       <TaskList />
       <TaskItem />
       <TaskFilter />
