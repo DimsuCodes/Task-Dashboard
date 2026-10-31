@@ -5,3 +5,13 @@
 // 4. Sort control
 // 5. Every change -> send updated filter options up through a callback prop
 // 6. Show which filters are active, plus a way to clear them
+
+export default function TaskFilter() {
+
+
+    return(
+               <div>
+            <h1>Task Filter</h1>
+        </div>
+    )
+}

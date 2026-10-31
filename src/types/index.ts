@@ -37,6 +37,7 @@ export interface TaskListProps {
   tasks: Task[];
   onStatusChange: (taskId: string, newStatus: TaskStatus) => void;
   onDelete: (taskId: string) => void;
+//           ↑ what goes in      ↑ what comes out
 }
 
 // types/index.ts
