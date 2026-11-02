@@ -50,7 +50,10 @@ export interface TaskItemProps {
 
 // types/index.ts
 export interface TaskFilterProps {
+  filters: TaskFilters;
+  sortBy: SortOption;
   onFilterChange: (filters: TaskFilters) => void;
+  onSortChange: (sortBy: SortOption) => void;
 }
 
 export interface FormErrors {
@@ -61,3 +64,4 @@ export interface FormErrors {
 export interface TaskFormProps {
   onSubmit: (data: TaskFormData) => void;
 }
+
