@@ -1,7 +1,8 @@
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { TaskFilter } from "./components/TaskFilter/TaskFilter";
 import { TaskForm } from "./components/TaskForm/TaskForm";
-import { TaskList } from "./components/TaskList/TaskList";
+import { TaskItem } from "./components/TaskList/TaskItem";
+
 
 
 export default function App() {
@@ -10,7 +11,7 @@ export default function App() {
       <h1>Hello World!</h1>
       <Dashboard />
       <TaskForm onSubmit={(data) => console.log(data)} />
-      <TaskList />
+      <TaskItem />
       <TaskFilter />
       
     </div>
