@@ -9,8 +9,36 @@
 // 8. Export/import tasks as JSON
 // 9. Responsive layout
 // Extras (last): dark mode toggle, drag-and-drop reordering, animations
+import { useState } from 'react';
+import type { Task, TaskFormData, TaskStatus } from '../../types';
+import { TaskForm } from '../TaskForm/TaskForm';
+import { TaskList } from '../TaskList/TaskList';
+
+// Owns all task state and connects the form, filter, and list together
 export function Dashboard() {
-    return(
-        <div>Dashboard</div>
-    )
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  // Add: copy the old tasks, plus one new task on the end
+  const handleAdd = (data: TaskFormData) => {
+    const newTask: Task = { ...data, id: crypto.randomUUID() };
+    setTasks([...tasks, newTask]);
+  };
+
+  // Delete: keep every task EXCEPT the one with this id
+  const handleDelete = (id: string) => {
+    setTasks(tasks.filter((t) => t.id !== id));
+  };
+
+  // Status: swap in an updated copy of the matching task, keep the rest as-is
+  const handleStatusChange = (id: string, newStatus: TaskStatus) => {
+    setTasks(tasks.map((t) => (t.id === id ? { ...t, status: newStatus} : t)));
+  };
+
+  return (
+    <div>
+      <h1>Task Dashboard</h1>
+      <TaskForm onSubmit={handleAdd} />
+      <TaskList tasks={tasks} onStatusChange={handleStatusChange} onDelete={handleDelete} />
+    </div>
+  );
 }
