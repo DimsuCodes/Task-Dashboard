@@ -14,7 +14,7 @@ import type { Task, TaskFormData, TaskStatus, TaskFilters, SortOption } from '..
 import { TaskForm } from '../TaskForm/TaskForm';
 import { TaskList } from '../TaskList/TaskList';
 import { TaskFilter } from '../TaskFilter/TaskFilter';
-import { filterTasks, sortTasks } from '../../utils/taskUtils';
+import { filterTasks, sortTasks, getTaskStats } from '../../utils/taskUtils';
 
 // Owns all task state and connects the form, filter, and list together
 export function Dashboard() {
@@ -34,6 +34,7 @@ export function Dashboard() {
   // Not stored in state: worked out fresh on every render from tasks + filters + sortBy
   const visibleTasks = sortTasks(filterTasks(tasks, filters), sortBy);
 
+  const stats = getTaskStats(tasks);
   // Save tasks to localStorage whenever they change
   // TODO: fill the 2 blanks
   useEffect(() => {
@@ -52,15 +53,21 @@ export function Dashboard() {
 
 
   const handleStatusChange = (id: string, newStatus: TaskStatus) => {
-    setTasks(tasks.map((t) => (t.id === id ? { ...t, status: newStatus} : t)));
+    setTasks(tasks.map((t) => (t.id === id ? { ...t, status: newStatus } : t)));
   };
 
   return (
     <div>
       <h1>Task Dashboard</h1>
+      <div>
+        <p>Total: {stats.total}</p>
+        <p>Pending: {stats.pending}</p>
+        <p>In Progress: {stats.inProgress}</p>
+        <p>Completed: {stats.completed}</p>
+      </div>
       <TaskForm onSubmit={handleAdd} />
       <TaskFilter filters={filters} sortBy={sortBy} onFilterChange={setFilters} onSortChange={setSortBy} />
-      <TaskList tasks={visibleTasks}onStatusChange={handleStatusChange} onDelete={handleDelete} />
+      <TaskList tasks={visibleTasks} onStatusChange={handleStatusChange} onDelete={handleDelete} />
     </div>
   );
 }
