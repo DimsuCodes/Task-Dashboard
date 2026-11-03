@@ -9,7 +9,7 @@
 // 8. Export/import tasks as JSON
 // 9. Responsive layout
 // Extras (last): dark mode toggle, drag-and-drop reordering, animations
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Task, TaskFormData, TaskStatus, TaskFilters, SortOption } from '../../types';
 import { TaskForm } from '../TaskForm/TaskForm';
 import { TaskList } from '../TaskList/TaskList';
@@ -18,14 +18,28 @@ import { filterTasks, sortTasks } from '../../utils/taskUtils';
 
 // Owns all task state and connects the form, filter, and list together
 export function Dashboard() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  // Load saved tasks once, on first render (falls back to [] if nothing is saved or it's broken)
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    try {
+      const saved = localStorage.getItem('tasks');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
 
+  const [filters, setFilters] = useState<TaskFilters>({ search: '' });
+  const [sortBy, setSortBy] = useState<SortOption>('dueDate');
 
-const [filters, setFilters] = useState<TaskFilters>({ search: '' });
-const [sortBy, setSortBy] = useState<SortOption>('dueDate');
+  // Not stored in state: worked out fresh on every render from tasks + filters + sortBy
+  const visibleTasks = sortTasks(filterTasks(tasks, filters), sortBy);
 
-// Not stored in state: worked out fresh on every render from tasks + filters + sortBy
-const visibleTasks = sortTasks(filterTasks(tasks, filters), sortBy);
+  // Save tasks to localStorage whenever they change
+  // TODO: fill the 2 blanks
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+
   // Add: copy the old tasks, plus one new task on the end
   const handleAdd = (data: TaskFormData) => {
     const newTask: Task = { ...data, id: crypto.randomUUID() };
