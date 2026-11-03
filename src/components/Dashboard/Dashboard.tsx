@@ -10,21 +10,19 @@
 // 9. Responsive layout
 // Extras (last): dark mode toggle, drag-and-drop reordering, animations
 import { useState } from 'react';
-import type { Task, TaskFormData, TaskStatus } from '../../types';
+import type { Task, TaskFormData, TaskStatus, TaskFilters, SortOption } from '../../types';
 import { TaskForm } from '../TaskForm/TaskForm';
 import { TaskList } from '../TaskList/TaskList';
+import { TaskFilter } from '../TaskFilter/TaskFilter';
+import { filterTasks, sortTasks } from '../../utils/taskUtils';
 
 // Owns all task state and connects the form, filter, and list together
 export function Dashboard() {
   const [tasks, setTasks] = useState<Task[]>([]);
+
+
 const [filters, setFilters] = useState<TaskFilters>({ search: '' });
 const [sortBy, setSortBy] = useState<SortOption>('dueDate');
-const [filters, setFilters] = useState<TaskFilters>({ search: '' });
-const [sortBy, setSortBy] = useState<SortOption>('dueDate');
-
-// Not stored in state: worked out fresh on every render from tasks + filters + sortBy
-const visibleTasks = sortTasks(filterTasks(tasks, filters), sortBy);
-
 
 // Not stored in state: worked out fresh on every render from tasks + filters + sortBy
 const visibleTasks = sortTasks(filterTasks(tasks, filters), sortBy);
@@ -47,7 +45,8 @@ const visibleTasks = sortTasks(filterTasks(tasks, filters), sortBy);
     <div>
       <h1>Task Dashboard</h1>
       <TaskForm onSubmit={handleAdd} />
-      <TaskList tasks={tasks} onStatusChange={handleStatusChange} onDelete={handleDelete} />
+      <TaskFilter filters={filters} sortBy={sortBy} onFilterChange={setFilters} onSortChange={setSortBy} />
+      <TaskList tasks={visibleTasks}onStatusChange={handleStatusChange} onDelete={handleDelete} />
     </div>
   );
 }
